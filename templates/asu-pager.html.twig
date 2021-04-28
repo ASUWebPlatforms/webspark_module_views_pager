@@ -19,7 +19,6 @@
 {% else %}
   {% set alignment = '' %}
 {% endif %}
-
 {% if items %}
   <nav class="my-4" role="navigation" aria-labelledby="pagination-heading">
     <h4 id="pagination-heading" class="visually-hidden">{{ 'Pagination'|t }}</h4>
@@ -48,7 +47,6 @@
           <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
         {% endif %}
       {% endif %}
-
       {# Now generate the actual pager piece. #}
       {% for key, item in items.pages %}
         <li class="page-item pager__item{% if show_active %}{{ current == key ? ' is-active active' : '' }} {% endif %}">
@@ -76,8 +74,6 @@
           </li>
         {% endif %}
       {% endif %}
-
-
       {% if items.current and (items.previous or items.next) %}
         <li class="page-item disabled">
           {% trans %}
@@ -85,7 +81,6 @@
           {% endtrans %}
         </li>
       {% endif %}
-
       {# Add an ellipsis if there are further next pages. #}
       {% if ellipses.next and (show_ellipses == true) %}
         <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
