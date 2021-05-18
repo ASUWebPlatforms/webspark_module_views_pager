@@ -31,6 +31,8 @@ function webspark_module_views_pager_theme($existing, $type, $theme, $path) {
         'show_ellipses' => 0,
         'show_last' => 0,
         'show_active' => 1,
+        'border' => 0,
+        'color' => 'default',
       ],
     ],
   ];
@@ -173,6 +175,14 @@ function template_preprocess_asu_pager(&$variables) {
     $items['last']['href'] = Url::fromRoute($route_name, $route_parameters, $options)->toString();
     if (isset($tags[4])) {
       $items['last']['text'] = $tags[4];
+    }
+  }
+
+  // Add variable if page two does not exist in pages array
+  $variables['page_two'] = FALSE;
+  foreach ($items['pages'] as $pages_item) {
+    if ($pages_item['href'] == '?page=1') {
+      $variables['page_two'] = TRUE;
     }
   }
 
