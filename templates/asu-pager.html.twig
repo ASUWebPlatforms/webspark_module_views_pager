@@ -22,11 +22,7 @@
 {% if items %}
   <nav class="my-4" role="navigation" aria-labelledby="pagination-heading">
     <h4 id="pagination-heading" class="visually-hidden">{{ 'Pagination'|t }}</h4>
-    {% if color == 'default' %}
-      <ul class="pagination pager__items js-pager__items {{ alignment }}{% if border %} border p-2{% endif %}">
-    {% else%}
-      <ul class="pagination pager__items js-pager__items {{ alignment }} {{ color }} p-2">
-    {% endif%}
+    <ul class="pagination pager__items js-pager__items {{ alignment }}">
       {# Print previous item if we are not on the first page. #}
       {% if items.previous %}
         <li class="page-item pager__item pager__item--previous">
@@ -40,7 +36,6 @@
       {% endif %}
       {# Add an ellipsis if there are further previous pages. #}
       {% if ellipses.previous and (show_ellipses == true) %}
-
         <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
       {% endif %}
       {# Show first page and ellipsis if first page not shown in pages. #}
@@ -49,13 +44,9 @@
           <li class="page-item pager__item">
             <a href="{{ items.first.href }}" title="{{ 'Go to first page'|t }}"class="page-link">1</a>
           </li>
-          {# Don't show first elipsis if 2nd page is available in pages array #}
-          {% if page_two == false %}
-            <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
-          {% endif %}
+          <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
         {% endif %}
       {% endif %}
-
       {# Now generate the actual pager piece. #}
       {% for key, item in items.pages %}
         <li class="page-item pager__item{% if show_active %}{{ current == key ? ' is-active active' : '' }} {% endif %}">
@@ -83,8 +74,6 @@
           </li>
         {% endif %}
       {% endif %}
-
-
       {% if items.current and (items.previous or items.next) %}
         <li class="page-item disabled">
           {% trans %}
@@ -92,7 +81,6 @@
           {% endtrans %}
         </li>
       {% endif %}
-
       {# Add an ellipsis if there are further next pages. #}
       {% if ellipses.next and (show_ellipses == true) %}
         <li class="page-item pager__item pager__item--ellipsis disabled" role="presentation"><span class="page-link">&hellip;</span></li>
