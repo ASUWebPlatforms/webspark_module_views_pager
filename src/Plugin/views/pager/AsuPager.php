@@ -27,12 +27,14 @@ class AsuPager extends Full {
    */
   public function defineOptions() {
     $options = parent::defineOptions();
-    $options['icons'] = ['default' => 0];
+    // Empty Initial options
+
     $options['alignment'] = ['default' => 'center'];
-    $options['previous_next'] = ['default' => 1];
     $options['show_ellipses'] = ['default' => 0];
     $options['show_active'] = ['default' => 1];
     $options['show_last'] = ['default' => 0];
+    $options['color'] = ['default' => 'default'];
+    $options['border'] = ['default' => 0];
     return $options;
   }
 
@@ -41,20 +43,6 @@ class AsuPager extends Full {
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
-
-    $form['icons'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show icons'),
-      '#description' => $this->t('Show icons on "Next" and "Previous" buttons.'),
-      '#default_value' => $this->options['icons'],
-    ];
-
-    $form['previous_next'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show previous/next'),
-      '#description' => $this->t('Show "Next" and "Previous" buttons.'),
-      '#default_value' => $this->options['previous_next'],
-    ];
 
     $form['show_active'] = [
       '#type' => 'checkbox',
@@ -75,6 +63,25 @@ class AsuPager extends Full {
       '#title' => $this->t('Show last page'),
       '#description' => $this->t('Show last page when there are more pages than shown in the pager.'),
       '#default_value' => $this->options['show_last'],
+    ];
+
+    $form['border'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Add border'),
+      '#description' => $this->t('Display a border around the pager.'),
+      '#default_value' => $this->options['border'],
+    ];
+
+    $form['color'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Select colour'),
+      '#description' => $this->t('Select the colour way for the pager.'),
+      '#options' => [
+        'default' => $this->t('Default'),
+        'uds-bg-gray' => $this->t('Gray'),
+        'uds-bg-dark' => $this->t('Dark'),
+      ],
+      '#default_value' => $this->options['color'],
     ];
 
     $form['alignment'] = [
@@ -119,14 +126,14 @@ class AsuPager extends Full {
       '#tags' => $tags,
       '#element' => $this->options['id'],
       '#parameters' => $input,
-      '#icons' => $this->options['icons'],
       '#alignment' => $this->options['alignment'],
       '#quantity' =>  $this->options['quantity'],
       '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
-      '#previous_next' => $this->options['previous_next'],
       '#show_active' => $this->options['show_active'],
       '#show_last' => $this->options['show_last'],
       '#show_elllipses' => $this->options['show_ellipses'],
+      '#border' => $this->options['border'],
+      '#color' => $this->options['color'],
     ];
   }
 
