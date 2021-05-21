@@ -25,9 +25,7 @@ function webspark_module_views_pager_theme($existing, $type, $theme, $path) {
         'element' => 0,
         'parameters' => [],
         'route_name' => '',
-        'icons' => 0,
         'alignment' => '',
-        'previous_next' => 1,
         'show_ellipses' => 0,
         'show_last' => 0,
         'show_active' => 1,
@@ -132,10 +130,6 @@ function template_preprocess_asu_pager(&$variables) {
   }
 
   if ($i != $pager_max) {
-    // Add an ellipsis if there are further previous pages.
-    /*if ($i > 1) {
-      $variables['ellipses']['previous'] = TRUE;
-    }*/
     // Now generate the actual pager piece.
     for (; $i <= $pager_last && $i <= $pager_max; $i++) {
       $options = [
