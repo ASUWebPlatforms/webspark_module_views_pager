@@ -35,6 +35,7 @@ class AsuPager extends Full {
     $options['show_last'] = ['default' => 0];
     $options['color'] = ['default' => 'default'];
     $options['border'] = ['default' => 0];
+    $options['show_icons'] = ['default' => 1];
     return $options;
   }
 
@@ -95,6 +96,13 @@ class AsuPager extends Full {
       ],
       '#default_value' => $this->options['alignment'],
     ];
+
+    $form['show_icons'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show icons'),
+      '#description' => $this->t('Show left/right arrows on Prev and Next links.'),
+      '#default_value' => $this->options['show_icons'],
+    ];
   }
 
   /**
@@ -102,9 +110,24 @@ class AsuPager extends Full {
    */
   public function summaryTitle() {
     if (!empty($this->options['offset'])) {
-      return $this->formatPlural($this->options['items_per_page'], 'Asu pager, @count item, skip @skip', 'Asu pager, @count items, skip @skip', ['@count' => $this->options['items_per_page'], '@skip' => $this->options['offset']]);
+      return $this->formatPlural(
+        $this->options['items_per_page'],
+        'Asu pager, @count item, skip @skip',
+        'Asu pager, @count items, skip @skip',
+        [
+          '@count' => $this->options['items_per_page'],
+          '@skip' => $this->options['offset'],
+        ]
+      );
     }
-    return $this->formatPlural($this->options['items_per_page'], 'Asu pager, @count item', 'Asu pager, @count items', ['@count' => $this->options['items_per_page']]);
+    return $this->formatPlural(
+      $this->options['items_per_page'],
+      'Asu pager, @count item',
+      'Asu pager, @count items',
+      [
+        '@count' => $this->options['items_per_page']
+      ]
+    );
   }
 
   /**
@@ -134,6 +157,7 @@ class AsuPager extends Full {
       '#show_elllipses' => $this->options['show_ellipses'],
       '#border' => $this->options['border'],
       '#color' => $this->options['color'],
+      '#show_icons' => $this->options['show_icons'],
     ];
   }
 
